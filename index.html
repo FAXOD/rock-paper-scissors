@@ -11,11 +11,41 @@
                 let num = Math.floor(Math.random() * 3);
 
                 if (num == 0) {
-                    return "Rock";
+                    return "ROCK";
                 } else if (num == 1) {
-                    return "Paper";
+                    return "PAPER";
                 } else {
-                    return "Scissors";
+                    return "SCISSORS";
+                }
+            }
+
+            function playRound(playerSelection, computerSelection) {
+                playerSelection = playerSelection.toUpperCase();
+
+                // Draw
+                if (playerSelection === computerSelection) {
+                    return console.log("It's a draw!");
+                }
+
+                // Player chooses rock
+                if (playerSelection === "ROCK" && computerSelection === "PAPER") {
+                    return console.log("You lose! Paper beats Rock!");
+                } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") { 
+                    return console.log("You win! Rock beats Scissors!");
+                }
+
+                // Player chooses Scissors
+                if (playerSelection === "SCISSORS" && computerSelection === "ROCK") {
+                    return console.log("You lose! Rock beats Scissors!");
+                } else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") { 
+                    return console.log("You win! Scissors beats Paper!");
+                }
+
+                // Player chooses Paper
+                if (playerSelection === "PAPER" && computerSelection === "ROCK") {
+                    return console.log("You win! Paper beats Rock!");
+                } else if (playerSelection === "PAPER" && computerSelection === "SCISSORS") { 
+                    return console.log("You lose! Scissors beats Paper!");
                 }
             }
         </script>
