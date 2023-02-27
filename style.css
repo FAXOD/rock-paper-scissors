@@ -1,0 +1,36 @@
+.header {
+    background-color: cornflowerblue;
+    justify-self: center;
+    align-self: stretch;
+    text-align: center;
+    font-size: 32px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: coral;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 60px;
+    gap: 10px;
+}
+
+button {
+    font-size: 60px;
+    padding: 10px;
+    border-radius: 20px;
+}

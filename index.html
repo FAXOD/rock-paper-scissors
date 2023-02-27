@@ -3,9 +3,23 @@
     <head>
         <meta charset="UTF-180">
         <title>Rock Paper Scissors</title>
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
+        <div class="header">
+            <h1>ROCK, PAPER, SCISSORS</h1>
+        </div>
+        <div class="container">
+            <div id="results"></div>
+            <div id="buttons">
+                <button id="rock">Rock</button>
+                <button id="paper">Paper</button>
+                <button id="scissors">Scissors</button>
+            </div>
+            <div id="player-score"></div>
+            <div id="comp-score"></div>
+        </div>
         <script>
             function getComputerChoice() {
                 let num = Math.floor(Math.random() * 3);
@@ -19,72 +33,101 @@
                 }
             }
 
-            function playRound() {
-                let playerSelection = prompt("Rock, paper or scissors?", '');
-                playerSelection = playerSelection.toUpperCase();
+            // Preps results section
+            const results = document.getElementById('results');
+            results.textContent = "Let's Play!";
+            
+            // Prep score section
+            const playerScore = document.getElementById('player-score');
+            const compScore = document.getElementById('comp-score');
+            let pScore = 0;
+            let cScore = 0;
+            playerScore.textContent = "Player Score: " + pScore;
+            compScore.textContent = "Computer Score: " + cScore;
+
+            function playRound(choice) {
+                playerSelection = choice;
 
                 let computerSelection = getComputerChoice();
 
                 // Draw
                 if (playerSelection === computerSelection) {
-                    console.log("It's a draw!");
+                    results.textContent = "It's a draw!";
                 }
 
                 // Player chooses rock
                 if (playerSelection === "ROCK" && computerSelection === "PAPER") {
-                    console.log("You lose! Paper beats Rock!");
-                    return 2;
+                    results.textContent = "You lose! Paper beats Rock!";
+                    computerWin();
                 } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") { 
-                    console.log("You win! Rock beats Scissors!");
-                    return 1;
+                    results.textContent = "You win! Rock beats Scissors!";
+                    playerWin();
                 }
 
                 // Player chooses Scissors
                 if (playerSelection === "SCISSORS" && computerSelection === "ROCK") {
-                    console.log("You lose! Rock beats Scissors!");
-                    return 2;
+                    results.textContent = "You lose! Rock beats Scissors!";
+                    computerWin();
                 } else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") { 
-                    console.log("You win! Scissors beats Paper!");
-                    return 1;
+                    results.textContent = "You win! Scissors beats Paper!";
+                    playerWin();
                 }
 
                 // Player chooses Paper
                 if (playerSelection === "PAPER" && computerSelection === "ROCK") {
-                    console.log("You win! Paper beats Rock!");
-                    return 1;
+                    results.textContent = "You win! Paper beats Rock!";
+                    playerWin();
                 } else if (playerSelection === "PAPER" && computerSelection === "SCISSORS") { 
-                    console.log("You lose! Scissors beats Paper!");
-                    return 2;
+                    results.textContent = "You lose! Scissors beats Paper!";
+                    computerWin();
                 }
             }
 
-            function game() {
-                let playerScore = 0;
-                let computerScore = 0;
+            const rockBtn = document.getElementById('rock');
+            rockBtn.addEventListener('click', rockChosen);
 
-                for (i = 0; i < 10; i++) {
-                    console.log("Round " + (i + 1) + "!");
+            const paperBtn = document.getElementById('paper');
+            paperBtn.addEventListener('click', paperChosen);
 
-                    let whoWon = playRound();
+            const scissorsBtn = document.getElementById('scissors');
+            scissorsBtn.addEventListener('click', scissorsChosen);
 
-                    if (whoWon === 1) {
-                        playerScore++;
-                    } else if (whoWon === 2) {
-                        computerScore++;
-                    }
+            function rockChosen() {
+                playRound('ROCK');
+            }
 
-                    console.log("Player: " + playerScore + "  |  Computer: " + computerScore);
-                    
-                    if (playerScore === 3) {
-                        console.log("Player wins!");
-                        break;
-                    }
+            function paperChosen() {
+                playRound('PAPER');
+            }
 
-                    if (computerScore === 3) {
-                        console.log("Computer wins!");
-                        break;
-                    }
+            function scissorsChosen() {
+                playRound('SCISSORS');
+            }
+
+            function playerWin() {
+                pScore++;
+                playerScore.textContent = "Player: " + pScore;
+                if (pScore == 3) {
+                    confirm(`Player wins! 3-${cScore}`);
+                    gameReset();
                 }
+            }
+
+            function computerWin() {
+                cScore++;
+                compScore.textContent = "Computer: " + cScore;
+                if (cScore == 3) {
+                    confirm(`Computer wins! 3-${pScore}`);
+                    gameReset();
+                }
+            }
+
+            function gameReset() {
+                pScore = 0;
+                playerScore.textContent = "Player: " + pScore;
+                cScore = 0;
+                compScore.textContent = "Computer: " + cScore;
+                results.textContent = "Let's Play!";
             }
         </script>
     </body>
